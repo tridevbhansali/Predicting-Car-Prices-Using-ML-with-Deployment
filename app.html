@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" style="
+background-color: gainsboro;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Car Price Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1093.0" data-gr-ext-installed="" style="
+    background-color: gainsboro;">
+
+    <script>
+        var brand_names = [];
+        $(document).ready(function () {
+            $.get("http://localhost/brand_name", function (data, status) {
+                let list = document.getElementById("brand_name")
+                data.forEach(element => {
+                    let option = document.createElement("option");
+                    option.innerText = element;
+                    list.appendChild(option)
+                });
+                brand_names = data;
+            });
+        });
+    </script>
+    <script>
+        var model_names = [];
+        $(document).ready(function () {
+            $.get("http://localhost/model_name", function (data, status) {
+                let list = document.getElementById("model_name")
+                data.forEach(element => {
+                    let option = document.createElement("option");
+                    option.innerText = element;
+                    list.appendChild(option)
+                });
+                model_names = data;
+            });
+        });
+    </script>
+
+    <script>
+        var years = [];
+        $(document).ready(function () {
+            $.get("http://localhost/year", function (data, status) {
+                let list = document.getElementById("year")
+                data.forEach(element => {
+                    let option = document.createElement("option");
+                    option.innerText = element;
+                    list.appendChild(option)
+                });
+                years = data;
+            });
+        });
+    </script>
+
+    <script>
+        function submitform() {
+            var year = $('#year').val();
+            var brand_name = $('#brand_name').val();
+            var model_name = $('#model_name').val();
+            var fuel = $("input[type='checkbox']:checked").val();
+            var km = $('#km').val();
+            $.post("http://localhost/car_predicted", {
+                year: year, brand_name: brand_name, model_name: model_name,
+                fuel: fuel, km: km
+            }, function (data) {
+                $("#placeholder").html("Price--> " + data + " Lakhs");
+            });
+        }
+
+    </script>
+
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid justify-content-center">
+            <a class="navbar-brand mb-0 h1" href="/">Car Price Prediction</a>
+        </div>
+    </nav>
+
+    <div class="container shadow-lg p-3 mb-5 bg-body-tertiary rounded"
+        style="width: fit-content;position: relative; margin-top: 3%;">
+        <div class="mb-4">
+            <label for="range2" class="form-label">Year:</label>
+            <select class="form-select border-success" id="year">
+                <option selected>Choose a Year</option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="range2" class="form-label">Brand Name:</label>
+            <select class="form-select border-success" id="brand_name">
+                <option selected>Choose a Brand Name</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="range2" class="form-label">Model Name:</label>
+            <select class="form-select border-success" id="model_name">
+                <option selected>Choose a Model Name</option>
+            </select>
+        </div>
+        <div><label for="range2" class="form-label">Fuel Type:</label></div>
+        <div class="mb-4">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-success" type="checkbox" id="inlineCheckbox1" value="CNG">
+                <label class="form-check-label" for="inlineCheckbox1">CNG</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-success" type="checkbox" id="inlineCheckbox2" value="Diesel">
+                <label class="form-check-label" for="inlineCheckbox2">Diesel</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-success" type="checkbox" id="inlineCheckbox3" value="Electric">
+                <label class="form-check-label" for="inlineCheckbox3">Electric</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-success" type="checkbox" id="inlineCheckbox4" value="Hybrid">
+                <label class="form-check-label" for="inlineCheckbox4">Hybrid</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-success" type="checkbox" id="inlineCheckbox5" value="LPG">
+                <label class="form-check-label" for="inlineCheckbox5">LPG</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border-success" type="checkbox" id="inlineCheckbox6" value="Petrol">
+                <label class="form-check-label" for="inlineCheckbox6">Petrol</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label for="km" class="form-label">Kilometer:</label>
+            <input type="number" class="form-control border-success" id="km">
+        </div>
+
+        <div class="mb-4" style="margin-left: 15%;">
+            <button onclick="submitform()" type="button" id="button" class="btn btn-success"
+                style="width: 30%;">Submit</button>
+            <a id="placeholder" class="btn btn-success disabled placeholder col-5 opacity-100"
+                style="margin-left: 13%;"></a>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
