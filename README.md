@@ -1,7 +1,9 @@
-# Predicting Car Prices Using Machine Learning with Deployment
-This project utilizes machine learning to predict car prices based on various features such as make, model, year, and kilometer. It involves data collection, data cleaning, feature selection, model selection, and evaluation to create an accurate prediction model. The final model will be deployed in AWS server
+### Car prediction Website link --> http://43.204.238.28/
 
-## Car prediction Website link --> http://43.204.238.28/
+# Predicting Car Prices Using Machine Learning with Deployment
+This project is focused on using machine learning to predict the prices of used cars based on various features. The data for this project was scraped from an online car dealership website using Selenium. Once the data was collected, it was cleaned and preprocessed using Pandas in order to prepare it for training the machine learning model. Several machine learning algorithms were used to train the model, including Random Forest and Linear regression.
+
+Once the model was trained, a Flask server was created to host the model. The server was also used to create dynamic HTML content that allows users to input their car information and receive a prediction of its price. This was then deployed on AWS platform. This allows users to easily access the model and receive accurate predictions without having to download and run the code locally.
 
 <p align="center">
   <img src="Website Screenshot.jpg" width="500" height="500">
